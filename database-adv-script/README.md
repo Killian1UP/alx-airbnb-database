@@ -50,7 +50,8 @@ SELECT
     review.rating,
     review.comment
 FROM property
-LEFT JOIN review ON property.property_id = review.property_id;
+LEFT JOIN review ON property.property_id = review.property_id
+ORDER BY review.rating ASC;
 ```
 
 ✅ This query includes all properties, even if no review exists for them.
