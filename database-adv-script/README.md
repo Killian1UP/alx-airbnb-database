@@ -90,6 +90,58 @@ RIGHT JOIN booking b ON u.user_id = b.user_id;
 
 ✅ Since MySQL does not support `FULL OUTER JOIN` natively, this approach uses a `UNION` of `LEFT JOIN` and `RIGHT JOIN`.
 
+# 🧠 SQL Subqueries — Airbnb Dataset Practice
+
+This repository demonstrates the use of **non-correlated** and **correlated subqueries** in SQL to extract meaningful insights from a relational Airbnb-style database.
+
+---
+
+## 🎯 Objective
+
+Write both **correlated** and **non-correlated subqueries** using realistic Airbnb-style data.
+
+---
+
+## 📘 What Are Subqueries?
+
+- A **subquery** is a query nested inside another SQL query.
+- Subqueries can be used in `WHERE`, `FROM`, or `SELECT` clauses.
+- They allow filtering or aggregation based on data from other tables.
+
+---
+
+## 🔍 Types of Subqueries Covered
+
+### 1️⃣ Non-Correlated Subquery  
+**Find all properties where the average rating is greater than 4.0**
+
+```sql
+SELECT * 
+FROM property 
+WHERE property_id IN (
+    SELECT property_id 
+    FROM review 
+    GROUP BY property_id 
+    HAVING AVG(rating) > 4.0
+);
+```
+
+✅ This subquery runs independently of the outer query. It returns a list of property_ids with an average rating above 4.0, which the outer query then filters against.
+
+### 2️⃣ Correlated Subquery
+**Find users who have made more than 3 bookings**
+
+```sql
+SELECT * 
+FROM user u
+WHERE (
+    SELECT COUNT(*) 
+    FROM booking b 
+    WHERE b.user_id = u.user_id
+) > 3;
+```
+✅ This subquery is correlated because it references a value (u.user_id) from the outer query. It runs once for each row in the outer query to count bookings per user.
+
 ## 🛠 Tools Used
 - **MySQL** for data storage and querying.
 - **SQLTools Extension (VS Code)** for writing and running SQL queries locally.
@@ -98,3 +150,6 @@ RIGHT JOIN booking b ON u.user_id = b.user_id;
 - Understood differences between `INNER`, `LEFT`, and simulated `FULL OUTER JOIN`s.
 - Practiced writing complex queries that extract meaningful insights from relational data.
 - Learned to simulate `FULL OUTER JOIN` in MySQL using `UNION`.
+- Understood the difference between correlated and non-correlated subqueries.
+- Practiced using subqueries in the WHERE clause to filter data.
+- Strengthened SQL fundamentals for real-world database querying.
