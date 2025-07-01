@@ -30,15 +30,31 @@ ORDER BY r.rating ASC;
 
 -- FULL OUTER JOIN
 SELECT
-    user.first_name,
-    user.last_name,
-    user.email,
-    booking.booking_id,
-    booking.user_id,
-    booking.start_date,
-    booking.end_date,
-    booking.total_price,
-    booking.status
-FROM user
-FULL OUTER JOIN booking ON user.user_id = booking.user_id;
+    u.first_name,
+    u.last_name,
+    u.email,
+    b.booking_id,
+    b.user_id,
+    b.start_date,
+    b.end_date,
+    b.total_price,
+    b.status
+FROM user u
+LEFT JOIN booking b ON u.user_id = b.user_id
+
+UNION
+
+SELECT
+    u.first_name,
+    u.last_name,
+    u.email,
+    b.booking_id,
+    b.user_id,
+    b.start_date,
+    b.end_date,
+    b.total_price,
+    b.status
+FROM user u
+RIGHT JOIN booking b ON u.user_id = b.user_id;
+
 
