@@ -27,4 +27,4 @@ FROM booking b
 INNER JOIN user u ON b.user_id = u.user_id
 INNER JOIN property p ON b.property_id = p.property_id
 LEFT JOIN payment pay ON b.booking_id = pay.booking_id;
-    
+WHERE b.status = 'confirmed' AND pay.payment_method = 'credit_card';
